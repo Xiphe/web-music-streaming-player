@@ -1,2 +1,4 @@
 node_modules/
-dist/
+dist-client/
+dist-server/
+src-demo/public/index.js
