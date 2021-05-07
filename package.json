@@ -1,0 +1,28 @@
+{
+  "name": "web-music-streaming-player",
+  "version": "0.0.0-development",
+  "description": "headless interface for music streaming services",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Xiphe/web-music-streaming-player.git"
+  },
+  "keywords": [
+    "headless",
+    "spotify",
+    "streaming",
+    "music",
+    "client",
+    "server",
+    "oauth"
+  ],
+  "author": "Hannes Diercks <node@xiphe.net> (https://xiphe.net/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Xiphe/web-music-streaming-player/issues"
+  },
+  "homepage": "https://github.com/Xiphe/web-music-streaming-player#readme"
+}
