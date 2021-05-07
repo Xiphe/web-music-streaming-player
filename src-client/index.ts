@@ -13,15 +13,24 @@ export function spotify(userConfig: Partial<Config> = {}) {
   const client = rpcClient<Service>(baseUrl);
 
   return Object.assign(client, {
-    login(redirect: string = window.location.href) {
-      window.location.assign(
-        `${baseUrl}/login?${new URLSearchParams({
-          redirect,
-          baseUrl: !config.serverUrl.startsWith('http')
-            ? `${window.location.origin}/${baseUrl.replace(/^\//, '')}`
-            : baseUrl,
-        }).toString()}`,
-      );
+    getLoginUrl(redirect: string = window.location.href) {
+      return `${baseUrl}/login?${new URLSearchParams({
+        redirect,
+        baseUrl: !config.serverUrl.startsWith('http')
+          ? `${window.location.origin}/${baseUrl.replace(/^\//, '')}`
+          : baseUrl,
+      }).toString()}`;
+    },
+    getLogoutUrl(redirect: string = window.location.href) {
+      return `${baseUrl}/logout?${new URLSearchParams({
+        redirect,
+      }).toString()}`;
+    },
+    login(redirect?: string) {
+      window.location.assign(this.getLoginUrl(redirect));
+    },
+    logout(redirect: string = window.location.href) {
+      window.location.assign(this.getLogoutUrl(redirect));
     },
   });
 }

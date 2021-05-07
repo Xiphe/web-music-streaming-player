@@ -17,6 +17,7 @@ const spotify = new SpotifyWebAPI({
 const apiHandler = createHandler({
   spotify,
   session: {
+    path: '/api',
     secret: process.env.SESSION_SECRET!,
   },
   basePath: '/api',

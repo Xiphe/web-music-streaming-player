@@ -3,11 +3,13 @@ import { encrypt, decrypt } from './encrypt';
 export interface SessionOptions {
   defaultExpires?: number;
   name?: string;
+  path?: string;
   secret: string;
 }
 export type JsonSession = Record<string, any>;
 export default function createSessionHandler({
   secret,
+  path = '/',
   name = 'wmsp-session',
   defaultExpires = 1000 * 60 * 60 * 24 * 2,
 }: SessionOptions) {
@@ -23,12 +25,16 @@ export default function createSessionHandler({
       return JSON.parse(decrypt(raw, key, 'base64'));
     },
     commit<Session extends JsonSession>(
-      session: Session,
+      session: Session | null,
       expires: number = new Date().getTime() + defaultExpires,
     ) {
+      if (session === null) {
+        return `${name}=; Expires=${new Date().toUTCString()}; Path=${path}; HttpOnly;`;
+      }
+
       return `${name}=${encodeURIComponent(
         encrypt(JSON.stringify(session), key, 'base64'),
-      )}; Expires=${new Date(expires).toUTCString()}`;
+      )}; Expires=${new Date(expires).toUTCString()}; Path=${path}; HttpOnly;`;
     },
   };
 }

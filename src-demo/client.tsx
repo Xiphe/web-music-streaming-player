@@ -30,7 +30,10 @@ function App() {
       ) : me === null ? (
         <p>Loading...</p>
       ) : (
-        <h3>{me.display_name}</h3>
+        <>
+          <h3>{me.display_name}</h3>
+          <a href={spotifyClient.getLogoutUrl()}>Logout</a>
+        </>
       )}
     </>
   );

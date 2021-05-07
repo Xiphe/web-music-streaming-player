@@ -110,12 +110,28 @@ export default function createHandler({
         const state = uuid();
         const url = spotify.createAuthorizeURL(requiredScopes, state);
 
-        response.writeHead(302, {
+        response.writeHead(307, {
           Location: url,
           'Set-Cookie': session.commit(
             { state, redirect, loginCallback },
             new Date().getTime() + 1000 * 60 * 30,
           ),
+        });
+        response.end();
+      } else if (
+        request.url?.startsWith(`${basePath}/spotify/logout?`) &&
+        request.method === 'GET'
+      ) {
+        const params = new URLSearchParams(request.url.split('?')[1]);
+        const redirect = params.get('redirect');
+
+        if (!redirect) {
+          throw new ServerError('Missing redirect', 400);
+        }
+
+        response.writeHead(307, {
+          Location: redirect,
+          'Set-Cookie': session.commit(null),
         });
         response.end();
       } else if (
