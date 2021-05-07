@@ -4,7 +4,7 @@
   "description": "headless interface for music streaming services",
   "main": "lib/index.js",
   "scripts": {
-    "start": "concurrently 'node-dev src-demo/server.ts' 'esbuild src-demo/client.ts --bundle --outfile=src-demo/public/index.js --watch'",
+    "start": "concurrently -n server,client 'node-dev src-demo/server.ts' 'esbuild src-demo/client.tsx --bundle --inject:./src-demo/react-shim.ts --outfile=src-demo/public/index.js --watch'",
     "build:client": "esbuild src-client/index.ts --format=esm --bundle --outfile=dist-client/index.js",
     "test": "jest"
   },
@@ -29,12 +29,24 @@
   "homepage": "https://github.com/Xiphe/web-music-streaming-player#readme",
   "devDependencies": {
     "@types/node": "15.0.2",
+    "@types/react": "17.0.5",
+    "@types/react-dom": "17.0.3",
     "@types/serve-handler": "6.1.0",
+    "@types/spotify-web-api-node": "5.0.2",
+    "@types/uuid": "8.3.0",
     "concurrently": "6.0.2",
+    "dotenv": "9.0.0",
     "esbuild": "0.11.19",
     "node-dev": "7.0.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
     "serve-handler": "6.1.3",
+    "spotify-web-api-node": "5.0.2",
     "ts-node": "9.1.1",
     "typescript": "4.2.4"
+  },
+  "dependencies": {
+    "typed-rpc": "2.0.0",
+    "uuid": "8.3.2"
   }
 }

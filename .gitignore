@@ -2,3 +2,4 @@ node_modules/
 dist-client/
 dist-server/
 src-demo/public/index.js
+.env
